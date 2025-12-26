@@ -1,0 +1,17 @@
+{
+  "name": "chrome-extension-sync",
+  "version": "0.1.0",
+  "description": "Experimental Sync for Chrome browser context - get DOM, screenshots, selected text, and execute scripts",
+  "mcpServers": {
+    "browser-context": {
+      "command": "node",
+      "args": ["scripts${/}start.js"],
+      "cwd": "${extensionPath}",
+      "env": {
+        "BACKEND_URL": "http://localhost:3456"
+      },
+      "timeout": 30000
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}

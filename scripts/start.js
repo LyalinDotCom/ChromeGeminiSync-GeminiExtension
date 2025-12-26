@@ -3,9 +3,13 @@
  * Ensures dependencies are installed and project is built before starting the MCP server.
  */
 
-const { spawn } = require('node:child_process');
-const path = require('node:path');
-const fs = require('node:fs');
+import { spawn } from 'node:child_process';
+import path from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function runCommand(command, args, options) {
   return new Promise((resolve, reject) => {
@@ -45,6 +49,7 @@ async function main() {
     // Start the MCP server
     const SERVER_PATH = path.join(backendDir, 'dist', 'mcp', 'mcp-server.js');
     
+    // Check if dist exists, if not build
     if (!fs.existsSync(SERVER_PATH)) {
         console.error('[Bootstrap] Server binary missing, building...');
         await runCommand('npm', ['run', 'build'], { 

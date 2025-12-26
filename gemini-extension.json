@@ -1,6 +1,6 @@
 {
   "name": "chrome-extension-sync",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Experimental Sync for Chrome browser context - get DOM, screenshots, selected text, and execute scripts",
   "mcpServers": {
     "browser-context": {

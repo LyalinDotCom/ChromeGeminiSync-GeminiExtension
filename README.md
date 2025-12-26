@@ -2,9 +2,18 @@
 
 **The Gemini CLI side of the Chrome/Gemini bridge.**
 
-This extension runs a local WebSocket server and MCP server to allow Gemini CLI to communicate with your Chrome browser.
+This extension runs a local WebSocket server and MCP server to allow Gemini CLI to communicate with your Chrome browser. It acts as the "brain" that translates Gemini's requests into actions in Chrome.
+
+> **Note:** This project is currently tested and supported only on **macOS (Apple Silicon)**.
+
+## Prerequisites
+
+- **Node.js** (v20 or higher)
+- **Gemini CLI** installed
 
 ## Installation
+
+### 1. Install this Extension
 
 ```bash
 # Clone the repository
@@ -14,14 +23,28 @@ git clone https://github.com/yourusername/ChromeGeminiSync-GeminiExtension.git
 gemini extensions link ./ChromeGeminiSync-GeminiExtension
 ```
 
-## Setup
+### 2. Install the Companion Chrome Extension
 
-1.  **Install this extension** (see above).
-2.  **Install the companion Chrome Extension**: You need the `ChromeGeminiSync-ChromeExtension` installed in your browser.
-3.  **Start using it**: Ask Gemini to "Look at this page" or "Take a screenshot". The server starts automatically.
+This server works in tandem with a Chrome Extension. You must install and build the frontend client as well.
+
+👉 **[Go to ChromeGeminiSync-ChromeExtension](https://github.com/yourusername/ChromeGeminiSync-ChromeExtension)** and follow the setup instructions there.
+
+## Usage
+
+Once both parts are installed:
+
+1.  Open Chrome and ensure the extension is loaded.
+2.  Open your terminal with Gemini CLI.
+3.  Ask Gemini to interact with your browser:
+
+    - "Look at the active tab"
+    - "Take a screenshot"
+    - "What is the URL of this page?"
+
+The backend server will **automatically start** when you make your first request. You don't need to run any manual start scripts.
 
 ## Architecture
 
-This project contains:
-- **MCP Server**: Translates Gemini tool calls into WebSocket messages.
-- **WebSocket Server**: Maintains a persistent connection to the Chrome Extension.
+- **MCP Server:** Runs locally and exposes tools (`get_browser_dom`, `screenshot`, etc.) to Gemini.
+- **WebSocket Server:** Bridges the gap between the MCP server and the Chrome Extension.
+- **Auto-Start:** The MCP server detects if the backend is running and spawns it automatically if needed.
